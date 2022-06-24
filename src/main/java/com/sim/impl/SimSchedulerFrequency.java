@@ -2,25 +2,36 @@ package com.sim.impl;
 
 import com.sim.api.SimScheduler;
 
+/**
+ * A default implementation of the interface. It decides how many events should be generated based
+ * on a constant frequency.
+ */
 public class SimSchedulerFrequency implements SimScheduler {
 
-  final int frequency;
+  final double frequency;
 
-  long timeOfLastTrue;
+  long lastWeTimeMadeSomething = 0;
 
   /**
-   * @param frequency The number of intervals (time) between events.
+   * @param frequency The number events per time unit. If frequency is less than one, multiple time
+   *     steps pass between events. If frequency is greater than one, multiple events are generated
+   *     every time step.
    */
-  public SimSchedulerFrequency(int frequency) {
+  public SimSchedulerFrequency(double frequency) {
     this.frequency = frequency;
   }
 
   @Override
-  public int quantity(long time) {
+  public long quantity(long time) {
 
-    int quantity = Math.floorMod(time - timeOfLastTrue, frequency);
+    // Time step zero is going to be pretty boring.
+    long interval = time - lastWeTimeMadeSomething;
+    double rationalNumber = interval * frequency;
+    // TODO: Ask if we really want the floor function. It is only necessary if our semantics are "at
+    // MOST x events/timeunit"
+    long quantity = Math.round(Math.floor(rationalNumber));
     if (quantity > 0) {
-      timeOfLastTrue = time;
+      lastWeTimeMadeSomething = time;
     }
     return quantity;
   }

@@ -2,13 +2,11 @@ package com.sim.api;
 
 import java.util.List;
 
-public interface SimTimeStep extends Comparable<SimTimeStep> {
+public interface SimTimeStep extends Comparable<SimTimeStep>, Runnable {
 
-  boolean add(SimExecutable sx);
+  boolean add(List<Runnable> runnableEvents);
 
-  void execute();
-
-  List<SimExecutable> getSimExecutables();
+  List<Runnable> getSimRunnableEvents();
 
   /**
    * The executable's scheduled time to run.
@@ -16,6 +14,4 @@ public interface SimTimeStep extends Comparable<SimTimeStep> {
    * @return simulation time
    */
   long getTime();
-
-  boolean remove(SimExecutable sx);
 }

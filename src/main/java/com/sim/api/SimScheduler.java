@@ -1,8 +1,8 @@
 package com.sim.api;
 
 /**
- * The purpose of this class is to decide if it is time to create another event. Implementation
- * could make decision based on a frequency settings, a probability distribution, or random noise.
+ * The purpose of this class is to decide if it is time to create more events. Implementation could
+ * make a decision based on a frequency settings, a probability distribution, or random noise.
  * Implementation are expected to manage their own state.
  */
 public interface SimScheduler {
@@ -13,5 +13,5 @@ public interface SimScheduler {
    * @param time
    * @return The number of events to generate for this time step
    */
-  int quantity(long time);
+  long quantity(long time);
 }
