@@ -1,16 +1,11 @@
 package com.sim.api;
 
-/**
- * Implementation track the current time and advance the time.
- */
+/** The main coordinator of the work. */
 public interface Simulator {
 
-    long currentTime();
+  long currentTime();
 
-    SimWorker getWorker();
+  void start();
 
-    long start();
-
-    long stop();
-
+  void stop();
 }

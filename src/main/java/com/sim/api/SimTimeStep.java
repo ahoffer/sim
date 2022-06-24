@@ -4,18 +4,18 @@ import java.util.List;
 
 public interface SimTimeStep extends Comparable<SimTimeStep> {
 
-    boolean add(SimExecutable sx);
+  boolean add(SimExecutable sx);
 
-    void execute();
+  void execute();
 
-    List<SimExecutable> getSimExecutables();
+  List<SimExecutable> getSimExecutables();
 
-    /**
-     * The executable's scheduled time to run.
-     *
-     * @return simulation time
-     */
-    long getTime();
+  /**
+   * The executable's scheduled time to run.
+   *
+   * @return simulation time
+   */
+  long getTime();
 
-    boolean remove(SimExecutable sx);
+  boolean remove(SimExecutable sx);
 }

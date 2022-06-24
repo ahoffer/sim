@@ -4,8 +4,8 @@ import com.sim.api.SimEvent;
 import com.sim.api.SimEventStream;
 
 public class SimEventStreamImpl implements SimEventStream {
-    @Override
-    public SimEvent next() {
-        return null;
-    }
+  @Override
+  public SimEvent next() {
+    return null;
+  }
 }
