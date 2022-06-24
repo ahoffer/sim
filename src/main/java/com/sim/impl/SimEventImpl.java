@@ -5,6 +5,7 @@ import com.sim.api.SimTimeStep;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class SimEventImpl implements SimTimeStep {
 
@@ -18,6 +19,28 @@ public class SimEventImpl implements SimTimeStep {
     @Override
     public boolean add(SimExecutable sx) {
         return executables.add(sx);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SimEventImpl simEvent = (SimEventImpl) o;
+        return time == simEvent.time;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(time);
+    }
+
+    @Override
+    public int compareTo(SimTimeStep ts) {
+        if (this.equals(ts)) {
+            // There can only be one time step object for each moment of time.
+            throw new IllegalArgumentException(String.format("Two time steps have the same time value \"%s\"", getTime()));
+        }
+        return Long.compare(getTime(), ts.getTime());
     }
 
     @Override

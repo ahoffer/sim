@@ -2,7 +2,7 @@ package com.sim.api;
 
 import java.util.List;
 
-public interface SimTimeStep {
+public interface SimTimeStep extends Comparable<SimTimeStep> {
 
     boolean add(SimExecutable sx);
 
