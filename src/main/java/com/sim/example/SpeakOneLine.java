@@ -1,16 +1,15 @@
 package com.sim.example;
 
 import com.sim.api.SimEventStream;
-
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.stream.Collectors;
 
 public class SpeakOneLine implements SimEventStream {
 
-    final Iterator<String> dialogIt;
-    String dialogue =
-            """
+  final Iterator<String> dialogIt;
+  String dialogue =
+      """
                     ARTHUR: Whoa there!
                     SOLDIER #1: Halt! Who goes there?
                     ARTHUR: It is I, Arthur, son of Uther Pendragon, from the castle of Camelot. King of the Britons, defeator of the Saxons, sovereign of all England!
@@ -51,17 +50,17 @@ public class SpeakOneLine implements SimEventStream {
                     SOLDIER #1: What, held under the dorsal guiding feathers?
                     SOLDIER #2: Well, why not?""";
 
-    public SpeakOneLine() {
-        dialogIt =
-                Arrays.stream(dialogue.split("\\n")).sequential().collect(Collectors.toList()).iterator();
-    }
+  public SpeakOneLine() {
+    dialogIt =
+        Arrays.stream(dialogue.split("\\n")).sequential().collect(Collectors.toList()).iterator();
+  }
 
-    @Override
-    public Runnable next() throws EndOfStreamException {
+  @Override
+  public Runnable next() throws EndOfStreamException {
 
-        if (!dialogIt.hasNext()) {
-            throw new EndOfStreamException("!!! No More Python For You !!!");
-        }
-        return () -> System.out.println(dialogIt.next());
+    if (!dialogIt.hasNext()) {
+      throw new EndOfStreamException("!!! No More Python For You !!!");
     }
+    return () -> System.out.println(dialogIt.next());
+  }
 }

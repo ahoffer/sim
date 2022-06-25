@@ -3,19 +3,17 @@ package com.sim.api;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
-/**
- * The main coordinator of the work.
- */
+/** The main coordinator of the work. */
 public interface Simulator {
-    long currentTime();
+  long currentTime();
 
-    void start() throws ExecutionException, InterruptedException, TimeoutException;
+  void start() throws ExecutionException, InterruptedException, TimeoutException;
 
-    void stop();
+  void stop();
 
-    class SimulationException extends RuntimeException {
-        public SimulationException(Throwable throwable) {
-            super(throwable);
-        }
+  class SimulationException extends RuntimeException {
+    public SimulationException(Throwable throwable) {
+      super(throwable);
     }
+  }
 }
