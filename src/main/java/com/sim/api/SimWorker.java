@@ -6,5 +6,5 @@ package com.sim.api;
  */
 public interface SimWorker {
 
-  SimTimeStep executeTime(long time) throws SimEventStream.EndOfStreamException;
+    SimTimeStep executeTime(long time) throws SimEventStream.EndOfStreamException;
 }

@@ -7,11 +7,11 @@ package com.sim.api;
  */
 public interface SimScheduler {
 
-  /**
-   * Return true if it is time to create a SimEvent.
-   *
-   * @param time
-   * @return The number of events to generate for this time step
-   */
-  long quantity(long time);
+    /**
+     * Return true if it is time to create a SimEvent.
+     *
+     * @param time
+     * @return The number of events to generate for this time step
+     */
+    long quantity(long time);
 }
