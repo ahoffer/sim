@@ -14,15 +14,28 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class SimulatorImpl implements Simulator {
 
+  // Java lambdas and exception do not get along.
+  // Added this method to make demo and testing easier.
+  public void doit(String action) throws ExecutionException, InterruptedException, TimeoutException {
+    switch (action) {
+      case "start" -> start();
+      case "stop" -> stop();
+      case "advance" -> advanceOneStep();
+    }
+  }
+
+
+
+
   final ExecutorService executorService;
   final SimWorker simWorker;
-  // New simulations always start at time 0. To advance the time, use the skip function.
   long currentTime = 0;
+
   // NOTE: Currently only one thread is writing to this var and another thread is reading it.
   // I think marking it volatile would be enough for now. However, I can see that you might want
   // to halt the simulator if an exception bubbles up into this class.
   AtomicBoolean halt = new AtomicBoolean();
-  TimeUnit timeUnit = TimeUnit.SECONDS;
+  TimeUnit timeoutUnit = TimeUnit.SECONDS;
 
   public SimulatorImpl(SimWorker simWorker, ExecutorService executorService) {
     this.executorService = executorService;
@@ -30,7 +43,8 @@ public class SimulatorImpl implements Simulator {
     this.halt.set(true);
   }
 
-  long advanceOneStep() throws ExecutionException, InterruptedException, TimeoutException {
+  @Override
+  public long advanceOneStep() throws ExecutionException, InterruptedException, TimeoutException {
     // Simulation time is ONE BASED. The first time step is 1, not 0.
     Future<SimTimeStep> future =
         executorService.submit(
@@ -47,7 +61,7 @@ public class SimulatorImpl implements Simulator {
     // Rule 1. A running timestep must finish before another one starts.
     // Rule 2. If a timestep runs too long, its thread must be killed.
     // For now, we just pass exceptions up (down?) the stack.
-    future.get(getTimeoutValue(), timeUnit);
+    future.get(getTimeoutValue(), timeoutUnit);
     return currentTime;
   }
 
@@ -60,12 +74,14 @@ public class SimulatorImpl implements Simulator {
     return Integer.valueOf(System.getProperty("timeout", "60"));
   }
 
-  // TODO: Does skipping a useful operation?
+  // TODO: Is "skipping" a useful operation?
   // Do we need an advanceTo method that advances the time step instead of skipping to it?
   // Do we need both? How about advanceSteps(int x) or stepBackwareds(int x)?
 
   public void skipTo(long time) {
-    currentTime = time;
+
+    // Minus one because the method to advance time will increment the value before execution.
+    currentTime = time - 1;
   }
 
   @Override

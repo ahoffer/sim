@@ -8,8 +8,8 @@ import java.util.List;
 
 /**
  * Simple implementation that collaborates with a SimEventStream and SimScheduler. It is a no op
- * because the public method getRunnableEventsAtTime() returns an empty collection. TYhe intention
- * is for subclasses to override that method and return a collection of runnable events.
+ * because the public method getRunnableEventsAtTime() returns an empty collection. The intention is
+ * for subclasses to override that method and return a collection of runnable events.
  */
 public class SimEventFactoryNoOp implements SimEventFactory {
 

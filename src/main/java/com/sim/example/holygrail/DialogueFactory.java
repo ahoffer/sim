@@ -1,4 +1,4 @@
-package com.sim.example;
+package com.sim.example.holygrail;
 
 import com.sim.api.SimEventStream;
 import com.sim.api.SimScheduler;
