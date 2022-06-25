@@ -14,23 +14,9 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class SimulatorImpl implements Simulator {
 
-  // Java lambdas and exception do not get along.
-  // Added this method to make demo and testing easier.
-  public void doit(String action) throws ExecutionException, InterruptedException, TimeoutException {
-    switch (action) {
-      case "start" -> start();
-      case "stop" -> stop();
-      case "advance" -> advanceOneStep();
-    }
-  }
-
-
-
-
   final ExecutorService executorService;
   final SimWorker simWorker;
   long currentTime = 0;
-
   // NOTE: Currently only one thread is writing to this var and another thread is reading it.
   // I think marking it volatile would be enough for now. However, I can see that you might want
   // to halt the simulator if an exception bubbles up into this class.
@@ -68,6 +54,17 @@ public class SimulatorImpl implements Simulator {
   @Override
   public long currentTime() {
     return currentTime;
+  }
+
+  // Java lambdas and exception do not get along.
+  // Added this method to make demo and testing easier.
+  public void doit(String action)
+      throws ExecutionException, InterruptedException, TimeoutException {
+    switch (action) {
+      case "start" -> start();
+      case "stop" -> stop();
+      case "advance" -> advanceOneStep();
+    }
   }
 
   protected int getTimeoutValue() {
