@@ -48,9 +48,7 @@ public class SimWorkerImpl implements SimWorker, AutoCloseable {
     if (tstep == null) {
       tstep = makeTimeStep(time);
     }
-
     tstep.run();
-
     return tstep;
   }
 

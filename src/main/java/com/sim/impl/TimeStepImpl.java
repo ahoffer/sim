@@ -1,5 +1,6 @@
 package com.sim.impl;
 
+import com.sim.api.SimEvent;
 import com.sim.api.SimTimeStep;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +8,7 @@ import java.util.Objects;
 
 public class TimeStepImpl implements SimTimeStep {
 
-  final List<Runnable> runnableEvents = new ArrayList<>();
+  final List<SimEvent> runnableEvents = new ArrayList<>();
   final long time;
 
   public TimeStepImpl(long time) {
@@ -15,8 +16,8 @@ public class TimeStepImpl implements SimTimeStep {
   }
 
   @Override
-  public boolean add(List<Runnable> runnableEvents) {
-    return this.runnableEvents.addAll(runnableEvents);
+  public boolean add(List<SimEvent> simEvents) {
+    return this.runnableEvents.addAll(simEvents);
   }
 
   @Override
@@ -39,7 +40,7 @@ public class TimeStepImpl implements SimTimeStep {
   }
 
   @Override
-  public List<Runnable> getSimRunnableEvents() {
+  public List<SimEvent> getSimRunnableEvents() {
     return new ArrayList<>(runnableEvents);
   }
 
@@ -57,6 +58,6 @@ public class TimeStepImpl implements SimTimeStep {
   public void run() {
     // Execute in order.
     // Wait for one to finish before starting the next.
-    runnableEvents.forEach(Runnable::run);
+    runnableEvents.forEach(e -> e.executeWith( new SimReporterNoOp()));
   }
 }

@@ -4,9 +4,9 @@ import java.util.List;
 
 public interface SimTimeStep extends Comparable<SimTimeStep>, Runnable {
 
-  boolean add(List<Runnable> runnableEvents);
+  boolean add(List<SimEvent> runnableEvents);
 
-  List<Runnable> getSimRunnableEvents();
+  List<SimEvent> getSimRunnableEvents();
 
   /**
    * The executable's scheduled time to run.

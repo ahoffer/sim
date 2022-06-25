@@ -6,10 +6,13 @@ import com.sim.api.SimScheduler;
  * A default implementation of the interface. It decides how many events should be generated based
  * on a frequency.
  */
-public class SimSchedulerFrequency implements SimScheduler {
+public class SimFrequencyScheduler implements SimScheduler {
 
   final double frequency;
 
+  // Simulations star at time step 1.
+  // Seeting last time seen to 0 means that even on the first timestep there is a chance an event is
+  // generated.
   long lastWeTimeMadeSomething = 0;
 
   /**
@@ -17,14 +20,13 @@ public class SimSchedulerFrequency implements SimScheduler {
    *     steps pass between events. If frequency is greater than one, multiple events are generated
    *     every time step.
    */
-  public SimSchedulerFrequency(double frequency) {
+  public SimFrequencyScheduler(double frequency) {
     this.frequency = frequency;
   }
 
   @Override
   public long quantity(long time) {
 
-    // Time step zero is going to be pretty boring.
     long interval = time - lastWeTimeMadeSomething;
     double rationalNumber = interval * frequency;
 

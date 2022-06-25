@@ -15,5 +15,5 @@ public interface SimEventFactory {
    * @param time step
    * @return list to events to execute at the provided time step
    */
-  List<Runnable> getRunnableEventsAtTime(long time) throws SimEventStream.EndOfStreamException;
+  List<SimEvent> getRunnableEventsAtTime(long time) throws SimEventStream.EndOfStreamException;
 }

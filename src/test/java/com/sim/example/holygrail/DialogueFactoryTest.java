@@ -2,8 +2,9 @@ package com.sim.example.holygrail;
 
 import com.sim.api.SimEventFactory;
 import com.sim.api.Simulator;
-import com.sim.impl.SimSchedulerFrequency;
+import com.sim.impl.SimFrequencyScheduler;
 import com.sim.impl.SimWorkerImpl;
+import com.sim.impl.SimpleEventFactory;
 import com.sim.impl.SimulatorImpl;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ class DialogueTest {
   @Test
   void advance() throws Exception {
     List<SimEventFactory> factories = new ArrayList<>();
-    factories.add(new DialogueFactory(new SpeakOneLine(), new SimSchedulerFrequency(1)));
+    factories.add(new SimpleEventFactory(new DialogueStream(), new SimFrequencyScheduler(1)));
     try (SimWorkerImpl simWorker = new SimWorkerImpl(factories)) {
       Simulator simulator =
           new SimulatorImpl(simWorker, Executors.newSingleThreadScheduledExecutor());
@@ -36,7 +37,7 @@ class DialogueTest {
   void exhaustEventStream() {
     // This is what Java looks like without injection.
     List<SimEventFactory> factories = new ArrayList<>();
-    factories.add(new DialogueFactory(new SpeakOneLine(), new SimSchedulerFrequency(1)));
+    factories.add(new SimpleEventFactory(new DialogueStream(), new SimFrequencyScheduler(1)));
     try (SimWorkerImpl simWorker = new SimWorkerImpl(factories)) {
       Simulator simulator =
           new SimulatorImpl(simWorker, Executors.newSingleThreadScheduledExecutor());

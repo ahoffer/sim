@@ -1,11 +1,12 @@
 package com.sim.example.holygrail;
 
+import com.sim.api.SimEvent;
 import com.sim.api.SimEventStream;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.stream.Collectors;
 
-public class SpeakOneLine implements SimEventStream {
+public class DialogueStream implements SimEventStream {
 
   final Iterator<String> dialogIt;
   String dialogue =
@@ -50,17 +51,21 @@ public class SpeakOneLine implements SimEventStream {
                     SOLDIER #1: What, held under the dorsal guiding feathers?
                     SOLDIER #2: Well, why not?""";
 
-  public SpeakOneLine() {
+  public DialogueStream() {
     dialogIt =
         Arrays.stream(dialogue.split("\\n")).sequential().collect(Collectors.toList()).iterator();
   }
 
+  /**
+   * @return Concrete implementation of SimEvent
+   * @throws EndOfStreamException
+   */
   @Override
-  public Runnable next() throws EndOfStreamException {
+  public SimEvent next() throws EndOfStreamException {
 
     if (!dialogIt.hasNext()) {
       throw new EndOfStreamException("!!! No More Python For You !!!");
     }
-    return () -> System.out.println(dialogIt.next());
+    return new SpeakLine(dialogIt.next());
   }
 }
