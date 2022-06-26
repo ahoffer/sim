@@ -2,6 +2,8 @@ package com.sim.impl;
 
 import com.sim.api.SimEvent;
 import com.sim.api.SimTimeStep;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;

@@ -57,6 +57,7 @@ public class SimWorkerImpl implements SimWorker, AutoCloseable {
     for (SimEventFactory f : factories) {
       ts.add(f.getRunnableEventsAtTime(time));
     }
+    timeline.put(time, ts);
     return ts;
   }
 }

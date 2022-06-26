@@ -1,5 +1,7 @@
 package com.sim.api;
 
+import java.io.Serializable;
+
 /**
  * This is the interface for classes that actually simulate something. It might put a message on a queue,
  * send an HTTP request, or write to a file. What ever it does
@@ -18,7 +20,7 @@ package com.sim.api;
  * give it substance. I feel that Java is at its best for OO programs. I think Java's functional programming is
  * clumsy. If you want to do functional programming, use a real functional language and not Java.
  */
-public interface SimEvent {
+public interface SimEvent extends Serializable {
 
   void executeWith(SimReporter visitor);
 }

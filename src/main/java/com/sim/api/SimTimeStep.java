@@ -1,8 +1,9 @@
 package com.sim.api;
 
+import java.io.Serializable;
 import java.util.List;
 
-public interface SimTimeStep extends Comparable<SimTimeStep>, Runnable {
+public interface SimTimeStep extends Comparable<SimTimeStep>, Serializable, Runnable {
 
   boolean add(List<SimEvent> runnableEvents);
 
