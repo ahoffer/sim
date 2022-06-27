@@ -3,7 +3,7 @@ package com.sim.api;
 import java.io.Serializable;
 
 /**
- * This is the interface for classes that actually simulate something. It might put a message on a queue,
+ * SimEvent is the interface for classes that actually simulate something. It might put a message on a queue,
  * send an HTTP request, or write to a file. What ever it does
  * should be separate from any metrics or logging to is not part of the simulation.
  * The SimEvent DOES NOT KNOW IT IS IN A SIMULATION. The SimReporting, on the other hand, does know it is in a simulation, and can report on things when the event was executed.
@@ -20,7 +20,6 @@ import java.io.Serializable;
  * give it substance. I feel that Java is at its best for OO programs. I think Java's functional programming is
  * clumsy. If you want to do functional programming, use a real functional language and not Java.
  */
-public interface SimEvent extends Serializable {
+public interface SimEvent extends Serializable , Runnable{
 
-  void executeWith(SimReporter visitor);
 }

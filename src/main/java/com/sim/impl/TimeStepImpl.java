@@ -60,6 +60,8 @@ public class TimeStepImpl implements SimTimeStep {
   public void run() {
     // Execute in order.
     // Wait for one to finish before starting the next.
-    runnableEvents.forEach(e -> e.executeWith( new SimReporterNoOp()));
+    for (SimEvent e : runnableEvents) {
+      e.run();
+    }
   }
 }

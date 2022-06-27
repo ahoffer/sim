@@ -1,7 +1,6 @@
 package com.sim.example.holygrail;
 
 import com.sim.api.SimEvent;
-import com.sim.api.SimReporter;
 
 public class SpeakLine implements SimEvent {
 
@@ -12,11 +11,8 @@ public class SpeakLine implements SimEvent {
   }
 
   @Override
-  public void executeWith(SimReporter visitor) {
-    if (visitor == null) {
-      throw new RuntimeException("Visitor arg cannot be null. Use SimVisitorNoOp instead.");
-    }
-    visitor.report(this);
+  public void run() {
     System.out.println(myLine);
   }
 }
+
