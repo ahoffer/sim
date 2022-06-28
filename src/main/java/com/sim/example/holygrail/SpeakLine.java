@@ -2,7 +2,7 @@ package com.sim.example.holygrail;
 
 import com.sim.api.SimEvent;
 
-public class SpeakLine implements SimEvent {
+class SpeakLine implements SimEvent {
 
   final String myLine;
 
@@ -15,4 +15,3 @@ public class SpeakLine implements SimEvent {
     System.out.println(myLine);
   }
 }
-
